@@ -1,0 +1,18 @@
+private access app required
+superAdmin can create various subscription plans which specifies, subscription plan id, subscription fee and number of customers
+getSubscription plans API to view various subscription plans
+people can request to be supplier with specific subscription plans
+upon successful registration, supplier can request people to be their customers. 
+suppliers can send request to people to be their customers
+Maximum number of customers invitable will depend on the subscription plan
+ 
+ 
+HINT- SUPERADMIN will always have registration id as 1. have checks in middleware
+ 
+TABLES (basic...can increase or decrease these)
+subscription plan table
+new column in supplier table for the purchased subscription plan
+supplier-customer mapping table
+ 
+PS: ideally, you would also have a table to track invites, so that the invites are not forwarded to multiple people by the invitee. 
+But let's not take that into consideration now

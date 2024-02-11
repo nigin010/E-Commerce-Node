@@ -6,6 +6,7 @@ class EcSuppliers extends Model {
     public e_mail !: string;
     public password!: string;
     public profile_pic !: Buffer | null;
+    public purchased_subscription_plan ?: string;
     public registration_id ?: string;
     public registration_time_stamp ?: Date;
     public createdAt ?: Date;

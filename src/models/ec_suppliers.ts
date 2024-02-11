@@ -41,6 +41,9 @@ EcSuppliers.init(
 		allowNull: false,
 		defaultValue : Sequelize.literal('CURRENT_TIMESTAMP'),
 		},
+        purchased_subscription_plan : {
+        type : DataTypes.STRING,
+        },
 		createdAt: {
 		type: DataTypes.DATE,
 		allowNull: false,
