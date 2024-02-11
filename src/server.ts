@@ -1,11 +1,14 @@
-import express, {Express, Request, Response} from 'express';
+import express, {Express, NextFunction,  Request, Response} from 'express';
 import sequelize from './config/sequelize-config.ts';
 import indexRoutes from './routes/index.ts';
 import supplierRoutes from './routes/supplierRoutes.ts';
+import { Next } from 'mysql2/typings/mysql/lib/parsers/typeCast';
+import verifyToken from './middleware/verifyjwt.ts';
 // import customerRoutes from './routes/customerRoutes.ts';
 
 const app : Express = express();
 const PORT = 3000;
+export const X_API_KEY : string = "THIS IS AN X-API KEY";
 
 sequelize
 .sync({ force: false })
@@ -19,12 +22,32 @@ sequelize
 
 app.use(express.json());
 
+const middleware = (req : Request, res : Response, next : NextFunction) => {
+
+	res.setHeader("Set-Cookie", ["type = e-commerce", "language = typescript"]);
+	const api_key = req.headers['x-api-key'];
+	console.log("Hi From Middleware!");
+	if(api_key === X_API_KEY)
+		next();
+	else
+		return res.json({message : "Invalid X-API-Key"});
+}
+
+//Normal Way
+// app.use((req, res, next)=> middleware(req, res,next));
+// app.use('/api/v1', supplierRoutes);
+
+
 app.use(indexRoutes);
-app.use('/api/v1', supplierRoutes);
+
+//To setup the middleware specifically for a route
+app.use('/api/v1', verifyToken, supplierRoutes);
+
+// app.use('/api/v1', supplierRoutes);
 // app.use('/api/v2', customerRoutes);
-
-
 
 app.listen(PORT, () => {
     console.log("Listening!!...");
 })
+
+export default middleware;
