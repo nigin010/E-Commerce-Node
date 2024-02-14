@@ -4,7 +4,7 @@ import EcCustomers from "../../types/modelTypes/ec_customer";
 
 EcCustomers.init({
     customer_id : {
-        type : DataTypes.NUMBER,
+        type : DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true, 
         allowNull : false,
@@ -18,8 +18,22 @@ EcCustomers.init({
         allowNull : false,
     },
     phone_number : {
-        type : DataTypes.NUMBER, 
+        type : DataTypes.INTEGER, 
         allowNull : false,
+    },
+    invitee: {
+        type: DataTypes.INTEGER,
+        defaultValue: null,
+    },
+    createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     }
 },{
 	sequelize:sequelize,

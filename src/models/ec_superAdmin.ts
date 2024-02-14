@@ -20,6 +20,16 @@ EcSuperAdmin.init ({
     number_of_customers : {
         type : DataTypes.INTEGER,
         allowNull : false,
+    },
+    createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     }
 },{
 	sequelize:sequelize,

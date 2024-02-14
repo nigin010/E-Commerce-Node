@@ -5,6 +5,8 @@ import supplierRoutes from './routes/supplierRoutes.ts';
 import verifyToken from './middleware/verifyjwt.ts';
 // import customerRoutes from './routes/customerRoutes.ts';
 import superAdminRoutes from './routes/superAdminRoutes.ts';
+import customerRegistrationRoutes from './routes/customerRoutes.ts';
+import verifySuperAdminjwt from './middleware/verifySuperAdminjwt.ts';
 
 const app : Express = express();
 const PORT = 3000;
@@ -33,18 +35,6 @@ const middleware = (req : Request, res : Response, next : NextFunction) => {
 		return res.json({message : "Invalid X-API-Key"});
 }
 
-const superAdminMiddleware = (req : Request, res : Response, next : NextFunction) => {
-	const api_key = req.headers['x-api-key'];
-	console.log("Hi From Super Admin Middleware!");
-
-	const {registration_id} = req.body;
-	if(registration_id === '1')
-	{
-		next();
-	}
-	else
-	return res.json({message : "Invalid Registration ID"});
-}
 
 //Normal Way
 // app.use((req, res, next)=> middleware(req, res,next));
@@ -56,10 +46,8 @@ app.use(indexRoutes);
 //To setup the middleware specifically for a route
 app.use('/api/v1', supplierRoutes);
 // app.use('/api/v1', verifyToken, supplierRoutes);
-app.use('/api/v3',superAdminMiddleware, superAdminRoutes);
-
-// app.use('/api/v1', supplierRoutes);
-// app.use('/api/v2', customerRoutes);
+app.use('/api/v3',verifySuperAdminjwt, superAdminRoutes);
+app.use('/api/v4', customerRegistrationRoutes);
 
 app.listen(PORT, () => {
     console.log("Listening!!...");
