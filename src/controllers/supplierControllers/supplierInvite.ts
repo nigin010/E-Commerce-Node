@@ -11,7 +11,7 @@ const supplierInvite = async (req: Request,res: Response) =>{
 
         if(findCustomer)
         {
-            const findSupplierInvitingCustomers = await EcSupplierCustomerMapping.findAll({where : {supplier_id : supplier_id}});
+            const findSupplierInvitingCustomers = await EcSupplierCustomerMapping.findAll({where : {supplier_id : supplier_id, invite_Status : 'Accepted'}});
             const supplierInviteCount = findSupplierInvitingCustomers.length;
 
             const findSupplier = await EcSuppliers.findOne({where : {registration_id : supplier_id}});
@@ -25,17 +25,17 @@ const supplierInvite = async (req: Request,res: Response) =>{
 
             if(supplierInviteCount < maximum_number_of_customers)
             {
-                const customerInvited = await EcSupplierCustomerMapping.findOne({where : {customer_id : customer_id}})
-                // if(customerInvited)
-                // {
-                //     return res.status(404).json({message : `The Customer ${findCustomer.customer_name} has Already been Invited`}); 
-                // }
-                // else
-                // {
+                const customerInvited = await EcSupplierCustomerMapping.findOne({where : {customer_id : customer_id, supplier_id : supplier_id}})
+                if(customerInvited)
+                {
+                    return res.status(404).json({message : `The Customer ${findCustomer.customer_name} has Already been Invited`}); 
+                }
+                else
+                {
                     const newSubscription = EcSupplierCustomerMapping.create({supplier_id : supplier_id, customer_id : customer_id});
                     
                     return res.status(200).json({message : `The Customer ${findCustomer.customer_name} has been Successfully Invited By ${findSupplier?.full_name}`});
-                // }
+                }
             }
             else
             {

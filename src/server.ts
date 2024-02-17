@@ -7,6 +7,9 @@ import verifyToken from './middleware/verifyjwt.ts';
 import superAdminRoutes from './routes/superAdminRoutes.ts';
 import customerRegistrationRoutes from './routes/customerRoutes.ts';
 import verifySuperAdminjwt from './middleware/verifySuperAdminjwt.ts';
+import { client, connectToMongoDb, disconnectFromMongoDb } from './services/mongodb.ts';
+import addProductsRoutes from './routes/productRoutes.ts';
+import cors from 'cors';
 
 const app : Express = express();
 const PORT = 3000;
@@ -40,15 +43,24 @@ const middleware = (req : Request, res : Response, next : NextFunction) => {
 // app.use((req, res, next)=> middleware(req, res,next));
 // app.use('/api/v1', supplierRoutes);
 
+connectToMongoDb();
+disconnectFromMongoDb();
+
+const corsOptions = {
+	origin : 'http://localhost:3000',
+	methods : 'GET',
+};
+app.use(cors(corsOptions));
 
 app.use(indexRoutes);
+
 
 //To setup the middleware specifically for a route
 app.use('/api/v1', supplierRoutes);
 // app.use('/api/v1', verifyToken, supplierRoutes);
 app.use('/api/v3',verifySuperAdminjwt, superAdminRoutes);
 app.use('/api/v4', customerRegistrationRoutes);
-
+app.use('/api/v5', addProductsRoutes);
 app.listen(PORT, () => {
     console.log("Listening!!...");
 })
