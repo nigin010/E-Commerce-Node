@@ -46,4 +46,20 @@ const searchProducts = async (req: Request, res: Response) => {
     }
 }
 
-export {viewProducts, sortedProducts, searchProducts};
+const filterProducts = async (req : Request, res : Response) => {
+    try
+    {
+        const {filter} = req.query;
+
+        if(!filter)
+            return res.status(400).json({error : "Filter Parameter is Required for Filtering"});
+
+            const products = await ecommerce.collection('e_commerce').findOne({ product_category: filter as string });
+
+        res.status(200).json({products});
+    } catch(error) {
+        return res.status(404).json({error : error});
+    }
+}
+
+export {viewProducts, sortedProducts, searchProducts, filterProducts};

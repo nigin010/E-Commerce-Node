@@ -1,6 +1,6 @@
 import { Router, Request, Response} from "express";
 import addProducts from "../controllers/productControllers/addProduct";
-import {viewProducts, sortedProducts, searchProducts} from "../controllers/productControllers/viewProducts";
+import {viewProducts, sortedProducts, searchProducts, filterProducts} from "../controllers/productControllers/viewProducts";
 
 const router = Router();
 
@@ -20,6 +20,9 @@ const searchProductsController = async(req : Request, res : Response) => {
     searchProducts(req, res);
 }
 
+const filterProductsController = async(req : Request, res : Response) => {
+    filterProducts(req, res);
+}
 router.post('/addProduct',async(req : Request, res : Response) => {
     await addProductController(req, res);
 });
@@ -34,5 +37,10 @@ router.get('/sortProduct', async(req : Request, res : Response) => {
 
 router.get('/searchProduct', async(req : Request, res : Response) => {
     await searchProductsController(req, res);
-})
+});
+
+router.get('/filterProduct', async(req : Request, res : Response) => {
+    await filterProductsController(req, res);
+});
+
 export default router;
