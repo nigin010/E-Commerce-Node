@@ -9,6 +9,6 @@
       "allowImportingTsExtensions": true,   //Allow imports to include TypeScript file extensions. 
       "noEmit": true,           //Disable emitting file from a compilation.
     },
-    "include": ["src/**/*.ts","types/**/*.ts"],
+    "include": ["src/**/*.ts","types/**/*.ts", "test/**/*.test.ts"],
     "exclude": ["node_modules", "dist"]
 }

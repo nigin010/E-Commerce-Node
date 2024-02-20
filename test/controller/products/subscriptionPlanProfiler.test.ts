@@ -1,11 +1,9 @@
 import {Request, Response} from "express";
-import EcSuperAdmin  from "../../models/ec_superAdmin";
+import EcSuperAdmin  from "../../../src/models/ec_superAdmin";
  
  
 const subscriptionPlanProfiler = async (req: Request,res: Response) =>{
     try{
-
-        console.log("Testing");
         const found = await EcSuperAdmin.findAll();
  
             if(found==null){

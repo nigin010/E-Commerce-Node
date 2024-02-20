@@ -29,7 +29,6 @@ const superAdminAddPlan = async (req : Request, res : Response) => {
                 number_of_customers : number_of_customers
             }, {raw : true});
 
-            console.log(typeof(res.status(200).json({message : `New Subscription Plan Has Been Created. The Details of the New Plan Are As Follows :- \nSubscription Plan ID : ${((await newSuperAdmin).subscription_plan_id)}\nSubscription Plan Name :${(await newSuperAdmin).subscription_plan_name}\n Subscription Fee :  ${((await newSuperAdmin).subscription_fee)} \nMaximum Number Of Customers :  ${((await newSuperAdmin).number_of_customers)} `})));
             return res.status(200).json({message : `New Subscription Plan Has Been Created. The Details of the New Plan Are As Follows :- \nSubscription Plan ID : ${((await newSuperAdmin).subscription_plan_id)}\nSubscription Plan Name :${(await newSuperAdmin).subscription_plan_name}\n Subscription Fee :  ${((await newSuperAdmin).subscription_fee)} \nMaximum Number Of Customers :  ${((await newSuperAdmin).number_of_customers)} `})
         }
         else

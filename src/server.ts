@@ -54,7 +54,7 @@ app.use(cors(corsOptions));
 
 app.use(indexRoutes);
 
-
+app.use('/api/v0',middleware, superAdminRoutes);
 //To setup the middleware specifically for a route
 app.use('/api/v1', supplierRoutes);
 // app.use('/api/v1', verifyToken, supplierRoutes);

@@ -37,7 +37,7 @@ const ecommerce = client.db('E-Commerce');
 
 
 //For inserting multiple products
-const addProducts = async (req : Request, res : Response) => {
+const mockProducts = async (req : Request, res : Response) => {
     try
     {
         const product : Array<{product_name : string, product_category : string, product_price : number, product_stock : number, [key : string] : string|number}> = req.body;
@@ -69,4 +69,4 @@ const addProducts = async (req : Request, res : Response) => {
 
 }
 
-export default addProducts;
+export default mockProducts;

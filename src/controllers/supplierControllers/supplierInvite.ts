@@ -11,7 +11,7 @@ const supplierInvite = async (req: Request,res: Response) =>{
 
         if(findCustomer)
         {
-            const findSupplierInvitingCustomers = await EcSupplierCustomerMapping.findAll({where : {supplier_id : supplier_id, invite_Status : 'Accepted'}});
+            const findSupplierInvitingCustomers = await EcSupplierCustomerMapping.findAll({where : {supplier_id : supplier_id, invite_Status : 'Pending'}});
             const supplierInviteCount = findSupplierInvitingCustomers.length;
 
             const findSupplier = await EcSuppliers.findOne({where : {registration_id : supplier_id}});
@@ -23,6 +23,8 @@ const supplierInvite = async (req: Request,res: Response) =>{
             if(maximum_number_of_customers === undefined)
                 maximum_number_of_customers = 0;
 
+                console.log(supplierInviteCount)
+                console.log(maximum_number_of_customers)
             if(supplierInviteCount < maximum_number_of_customers)
             {
                 const customerInvited = await EcSupplierCustomerMapping.findOne({where : {customer_id : customer_id, supplier_id : supplier_id}})
